@@ -1,0 +1,48 @@
+version: 2.1
+
+orbs:
+  do: digitalocean/cli@0.1.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t "$DOCKER_USERNAME"/localizeos:latest .
+            docker tag "$DOCKER_USERNAME"/localizeos:latest "$DOCKER_USERNAME"/localizeos:$CIRCLE_BUILD_NUM
+      - run:
+          name: Push Docker image 
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push "$DOCKER_USERNAME"/localizeos:latest
+            docker push "$DOCKER_USERNAME"/localizeos:$CIRCLE_BUILD_NUM
+
+  deploy:
+    docker:
+      - image: circleci/node:16
+    steps:
+      - checkout
+      - do/install
+      - do/initialize:
+          digitalocean-access-token: DO_ACCESS_TOKEN
+      - run: doctl apps update $DO_APP_ID --spec .do/app.yaml
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
