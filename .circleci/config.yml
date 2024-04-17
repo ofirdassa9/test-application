@@ -29,7 +29,10 @@ jobs:
       - do/install
       - do/initialize:
           digitalocean-access-token: DO_ACCESS_TOKEN
-      - run: doctl apps update $DO_APP_ID --spec .do/app.yaml
+      - run: |
+          pwd
+          ls -la
+          doctl apps update $DO_APP_ID --spec .do/app.yaml
 
 workflows:
   version: 2
