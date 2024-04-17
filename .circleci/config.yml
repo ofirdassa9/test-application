@@ -23,6 +23,8 @@ jobs:
             docker push "$DOCKER_USERNAME"/localizeos:$CIRCLE_BUILD_NUM
 
   deploy:
+    docker:
+      - image: circleci/node:16
     steps:
       - digitalocean/install
       - digitalocean/initialize:
