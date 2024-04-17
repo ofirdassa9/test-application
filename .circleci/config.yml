@@ -26,13 +26,11 @@ jobs:
     docker:
       - image: circleci/node:16
     steps:
+      - checkout
       - do/install
       - do/initialize:
           digitalocean-access-token: DO_ACCESS_TOKEN
-      - run: |
-          pwd
-          ls -la
-          doctl apps update $DO_APP_ID --spec .do/app.yaml
+      - run: doctl apps update $DO_APP_ID --spec .do/app.yaml
 
 workflows:
   version: 2
