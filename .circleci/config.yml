@@ -1,6 +1,6 @@
 version: 2.1
 
-orb:
+orbs:
   do: digitalocean/cli@0.1.1
 
 jobs:
