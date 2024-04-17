@@ -11,7 +11,7 @@ jobs:
           name: Build Docker image
           command: |
             docker build -t "$DOCKER_USERNAME"/localizeos:latest .
-            docker tag -t "$DOCKER_USERNAME"/localizeos:latest "$DOCKER_USERNAME"/localizeos:$CIRCLE_RUN_NUMBER
+            docker tag "$DOCKER_USERNAME"/localizeos:latest "$DOCKER_USERNAME"/localizeos:$CIRCLE_RUN_NUMBER
       - run:
           name: Push Docker image
           command: |
