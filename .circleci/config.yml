@@ -11,11 +11,13 @@ jobs:
           name: Build Docker image
           command: |
             docker build -t "$DOCKER_USERNAME"/localizeos:latest .
+            docker tag -t "$DOCKER_USERNAME"/localizeos:latest "$DOCKER_USERNAME"/localizeos:$CIRCLE_RUN_NUMBER
       - run:
           name: Push Docker image
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             docker push "$DOCKER_USERNAME"/localizeos:latest
+            docker push "$DOCKER_USERNAME"/localizeos:$CIRCLE_RUN_NUMBER
 
 workflows:
   version: 2
