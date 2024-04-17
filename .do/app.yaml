@@ -1,0 +1,8 @@
+name: localizeos
+services:
+- name: web
+  http_port: 3000
+  image:
+    registry_type: DOCKER_HUB
+    repository: localizeos
+    registry: ofirdassa
