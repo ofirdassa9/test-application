@@ -1,7 +1,7 @@
 version: 2.1
 
 orb:
-  digitalocean: digitalocean/cli@0.1.1
+  do: digitalocean/cli@0.1.1
 
 jobs:
   build:
@@ -26,8 +26,8 @@ jobs:
     docker:
       - image: circleci/node:16
     steps:
-      - digitalocean/install
-      - digitalocean/initialize:
+      - do/install
+      - do/initialize:
           digitalocean-access-token: $DO_ACCESS_TOKEN
       - run: doctl apps update $DO_APP_ID --spec .do/app.yaml
 
