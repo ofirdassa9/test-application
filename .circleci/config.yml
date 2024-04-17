@@ -28,7 +28,7 @@ jobs:
     steps:
       - do/install
       - do/initialize:
-          digitalocean-access-token: $DO_ACCESS_TOKEN
+          digitalocean-access-token: DO_ACCESS_TOKEN
       - run: doctl apps update $DO_APP_ID --spec .do/app.yaml
 
 workflows:
