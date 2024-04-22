@@ -13,3 +13,4 @@ app.get("/", (req, res, next) => {
 app.get("/healthcheck", (req, res, next) => {
   res.send("OK");
 });
+
